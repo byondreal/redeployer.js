@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/byondreal/redeployer.js/issues"
   },
-  "homepage": "https://github.com/byondreal/redeployer.js"
+  "homepage": "https://github.com/byondreal/redeployer.js",
+  "dependencies": {
+    "shelljs": "^0.5.1"
+  }
 }
