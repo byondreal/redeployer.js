@@ -1,0 +1,25 @@
+{
+  "name": "@byondreal/redeployer",
+  "version": "1.0.0",
+  "description": "Express middleware for redeploying running app by hitting a URL exposed by the app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byondreal/redeployer.js.git"
+  },
+  "keywords": [
+    "redeploy",
+    "forever",
+    "lifecycle",
+    "webhook"
+  ],
+  "author": "ByondReal Dev <dev@byondreal.net>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/byondreal/redeployer.js/issues"
+  },
+  "homepage": "https://github.com/byondreal/redeployer.js"
+}
