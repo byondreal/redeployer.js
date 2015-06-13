@@ -11,7 +11,7 @@ var express = require('express'),
 
 var app = express();
 
-app.use(redeployer(''));
+app.use(redeployer('/redeploy', 'forever restartall'));
 
 app.listen(5000);
 ```
