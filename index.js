@@ -5,7 +5,7 @@ module.exports = function (command) {
     sh.exec('npm install --unsafe-perm');
     setTimeout(function () {
       sh.exec(command);
-    }, 2000);
+    }, 1000);
     res.send('restarting server');
   };
 };

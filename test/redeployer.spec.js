@@ -1,5 +1,7 @@
-var request = require('request'),
-    sh = require('shelljs');
+var assert = require('assert'),
+    request = require('request'),
+    exec = require('child_process').exec,
+    killCmd = require('../kill-cmd');
 
 var i = 0;
 function nextPort() {
@@ -10,28 +12,49 @@ function getUrl(port) {
   return 'http://localhost:' + port + '/';
 }
 
-function test(url, result, next) {
-  request(url, function (err, res, body) {
-    if (body === result) next();
-  });
-}
-
 describe('redeployer', function () {
-  it('redeploys application', function (done) {
-    var port = nextPort(),
-        url = getUrl(port),
-        redeployUrl = url + 'redeploy';
+  var port, url, redeployUrl;
 
-    sh.exec('node sample.js ' + port);
-    test(url, '1', function () {
-      test(url, '2', function () {
-        test(redeployUrl, 'restarting server', function () {
-          setTimeout(function () {
-            test(url, '1', done);
-          }, 4000);
+  beforeEach(function () {
+    port = nextPort();
+    url = getUrl(port);
+    redeployUrl = url + 'redeploy';
+
+    exec('node redeployer-sample.js ' + port);
+  });
+
+  it('redeploys application', function (done) {
+    this.timeout(10000);
+
+    setTimeout(function () {
+      request(url, function (err, res, body) {
+        assert.equal(err, null);
+        assert.equal(body, '1');
+
+        request(url, function (err, res, body) {
+          assert.equal(err, null);
+          assert.equal(body, '2');
+
+          request(redeployUrl, function (err, res, body) {
+            assert.equal(err, null);
+            assert.equal(body, 'restarting server');
+
+            setTimeout(function () {
+              request(url, function (err, res, body) {
+                assert.equal(err, null);
+                assert.equal(body, '1');
+
+                done();
+              });
+            }, 4000);
+          });
         });
       });
-    });
+    }, 1000);
+  });
+
+  afterEach(function () {
+    exec(killCmd(port));
   });
 });
 
