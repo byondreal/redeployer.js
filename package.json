@@ -1,6 +1,6 @@
 {
   "name": "@byondreal/redeployer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Express middleware for redeploying running app by hitting a URL exposed by the app",
   "main": "index.js",
   "scripts": {
