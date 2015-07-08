@@ -5,7 +5,7 @@ var assert = require('assert'),
 
 var i = 0;
 function nextPort() {
-  return 5000 + i++;
+  return 7000 + i++;
 }
 
 function getUrl(port) {
