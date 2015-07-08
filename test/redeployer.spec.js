@@ -37,7 +37,7 @@ describe('redeployer', function () {
 
           request(redeployUrl, function (err, res, body) {
             assert.equal(err, null);
-            assert.equal(body, 'restarting server');
+            assert.equal(body && body.indexOf('Success'), 0);
 
             setTimeout(function () {
               request(url, function (err, res, body) {
